@@ -21,19 +21,19 @@
           <p>Drop files here to upload </p> 
           <p>
             or 
-            <a href="#" class="chooseFile">
-              <input type="file" multiple> choose file
-            </a>
+            <label for="chooseFile" class="chooseFile">choose file
+              <input id="chooseFile" type="file" multiple> 
+            </label>
           </p>  
         </div>
       </div>
     </div>
     <div class="upload-footer">
       <button class="discard">Discard</button>
-      <a href="#" class="chooseFile upload-button">
-        <input type="file" multiple> Attach files
+      <label for="chooseFile" class="chooseFile upload-button">Attach files
+        <input id="chooseFile" type="file" multiple> 
         <i class="fa fa-paperclip fa-flip-horizontal"></i>
-      </a>
+      </label>
     </div>
   </div>
   <script src="./js/upload.js"></script>

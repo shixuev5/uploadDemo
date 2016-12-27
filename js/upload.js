@@ -4,7 +4,7 @@ const uploadCt = document.querySelector('.upload-content');
 const wrapText = document.querySelectorAll('.wrap p');
 const inputFiles = document.querySelectorAll('.chooseFile input');
 
-let files = [];
+let fileArray = [];
 
 dropArea.addEventListener('dragenter', dragenter, false);
 dropArea.addEventListener('dragover', dragover, false);
@@ -38,34 +38,45 @@ function drop(e) {
   dropArea.style.backgroundColor = '#FDFEFE';
   dropArea.firstElementChild.style.setProperty('visibility', 'visible');
 
-  const files = e.dataTransfer.files;
+  let files = e.dataTransfer.files;
+
+  files = verify(files);
   
-  changeH(files.length);
+  if(files.length !== 0) {
+    changeH(files.length);
   
-  handleFiles(files);
+    handleFiles(files);
+  }
 }
 
 
 function selectFiles(e) {
-  const files = this.files;
+  let files = e.target.files;
 
-  changeH(files.length);
+  if(files.length !== 0) {
 
-  handleFiles(files);
+    files = verify(files);
+
+    if(files.length !== 0) {
+      changeH(files.length);
+
+      handleFiles(files);
+    }
+  }
 }
 
 
 function changeH(length) {
   let curTop = dropArea.style.getPropertyValue('top');
   if(curTop !== '') {
-    curTop = curTop.slice(0,2);
+    curTop = +curTop.slice(0,2);
   } else {
     curTop = 0;
   }
 
   if (curTop === 80) return;
 
-  const addTop = length * 22 + 15;
+  const addTop = length * 24 + 8;
   const resTop = addTop + curTop;
   
   if (resTop > 80) {
@@ -91,10 +102,37 @@ function handleFiles(files) {
   }
 }
 
+function verify(files) {
+  if(fileArray.length !== 0) {
+    let arr = Array.from(files);
+
+     files = arr.filter((f) => {
+      for(let file of fileArray) {
+        return f.size !== file.size;
+      }
+     });
+
+     console.log(files);
+     console.log(fileArray);
+  } 
+  if(files.length !== 0 ) {
+    //添加file到fileArray数组中
+    for(let file of files) {
+      fileArray.unshift(file);
+    }
+
+  }
+
+  return files;
+  
+}
+
 function addFileItem(fileSize, fileType, fileName) {
   const size = showSize(fileSize);
   const typeIco = showFileType(fileType);
   const fileCt = document.querySelector('.file-ct');
+  const fNameExp = /\.(\w+)/.exec(fileName);
+  fileName = fileName.slice(0, fNameExp.index + 1) + fNameExp[1].toLowerCase();
 
   const fileItem = `<li class="file-item">
     ${typeIco}
