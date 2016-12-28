@@ -115,10 +115,10 @@ body {
 
     .discard {
       color: #ABB9BA;
-      border: 1px solid $border;
       height: 38px;
       width: 110px;
       background: $azure;
+      border: 1px solid #e3e3e3;
       box-sizing: content-box;
       padding: 0;
       border-radius: 4px;
@@ -132,10 +132,15 @@ body {
 
       @include bthover;     
     }
+
+    .discard-active {
+      color: #fff;
+      background: #ff5f5b; 
+    }
   }
 }
 
-.chooseFile {
+.chooseLabel {
   color: #4DD0E1;
   text-decoration: underline;
 
@@ -200,6 +205,11 @@ body {
         color: #4c4c4c;
       }
 
+      progress {
+        display: none;
+        width: 480px;
+      }
+
       .file-size {
         color: #919596;
         font-size: 14px;
@@ -210,7 +220,7 @@ body {
     .item-r {
       float: right;
 
-      i {
+      s {
         color: #A8B4B6;
         background: #EDEFF0;
         border-radius: 50%;
@@ -221,6 +231,7 @@ body {
         line-height: 16px;
         height: 16px;
         width: 16px;
+        text-decoration: none;
         transition: all .3s;
 
         &:hover {
